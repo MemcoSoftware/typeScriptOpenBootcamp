@@ -1,3 +1,7 @@
+import { AsyncLocalStorage } from "async_hooks";
+
+import { setCookie, deleteCookie, deleteAllCookies, getCookieValue } from "cookies-utils";
+
 console.log("Hi Baned!");
 console.log("adios Baned!");    
 
@@ -452,3 +456,61 @@ console.log(generatorSaga.next().value) // 1 (lo ha hecho el watcher)
 console.log(generatorSaga.next().value) // 2 (lo ha hecho el watcher)
 console.log(generatorSaga.next().value) // 3 (lo ha hecho el watcher)
 console.log(generatorSaga.next().value) // 4 (lo ha hecho el watcher)
+
+
+// Sobrecarga de funciones
+
+function mostrarError(error: string | number): void {
+    console.log("ha habido un error", error);
+};
+
+
+// Persistencia de datos
+// 1. LocalStorage --> almacena los datos en el navegador (No se eliminan automáticamente)
+// 2. SessionStorage --> La direfencia radica en la sesión del navegador. Es decir, los datos se persisten en la sesión del navegador
+// 3. Cookies --> Tienen una fecha de caducidad, tienen un ambito de URL
+
+
+
+// LocalStorage
+
+// function saveLocalStorage(): void{
+    
+//     localStorage.set("nombre", "Baned");
+
+    
+// }
+
+// function readLocalStorage(): void{
+//     let nombre = localStorage.get("nombre");
+// }
+
+// Cookies
+
+const cookieOptions = {
+    name: "user", // string,
+    value: "Baned", // string,
+    // maxAge: 10 * 60, // optional number (value in seconds),
+    expires: new Date(2099, 10, 1), // optional Date,
+    path: "/", // optional string,
+    // domain: "site.com", // optional string,
+    // secure: true, // optional boolean,
+    // sameSite: "lax", // optional enum 'lax' | 'strict' | 'none'
+  };
+
+// Set the cookie
+
+setCookie(cookieOptions);
+
+// Get the cookie
+
+getCookieValue("user");
+
+// Delete the cookie
+
+deleteCookie("user");
+
+
+// Delete all the cookies
+
+deleteAllCookies();
