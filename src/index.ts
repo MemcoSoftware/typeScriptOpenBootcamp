@@ -6,6 +6,9 @@ import { setCookie, deleteCookie, deleteAllCookies, getCookieValue } from "cooki
 import { Curso } from "./models/Curso";
 import { Student } from "./models/Student";
 import { LISTA_CURSOS } from "./mock/cursos.mock";
+import { Boss, Employee } from "./models/Persona";
+import { ITarea, Levels } from "./models/interfaces/tarea.interface";
+import { Develop } from "./models/develop";
 
 
 console.log("Hi Baned!");
@@ -595,11 +598,72 @@ baned.cursos.forEach((curso)=>{
     console.log(` - ${curso.nombre} (${curso.hours}) horas`);
 })
 
-
-// -Typeof
-// -Instanceof
-
 // Know studied hours
  baned.studiedHours;
 
  baned.ID_Student;
+
+
+// -Typeof
+// -Instanceof
+
+let bornDate = new Date(2002,5,20);
+
+if (bornDate instanceof Date){
+    console.log(' Its a Date Instance ');
+}
+
+if(baned instanceof Student){
+    console.log("Baned is an student");
+}
+
+
+// Herencia y Polimorfismo
+
+let employee1 = new Employee("Baned", "Sxt", 21, 4000);
+let employee2 = new Employee("Six Stars", "Records", 20, 4000);
+let employee3 = new Employee("Random", "Guy", 24, 4000);
+
+
+employee1.saludar(); // herencia de Persona a employee 1 
+
+
+let boss = new Boss("Migue", "Herrera", 21);
+
+
+boss.employees.push(employee1, employee2, employee3);
+
+boss.saludar(); // herencia de Persona
+
+boss.employees.forEach((employee: Employee)=> {
+    employee.saludar();// especified in employee
+})
+
+
+// * INTERFACES
+
+let develop: ITarea = {
+    title: 'Develop in TypeScript',
+    description: 'Practicing to develop with TS',
+    completed: false,
+    urgency: Levels.Urgent,
+    resume: function (): string {
+        return `${this.title} - ${this.completed} - Level: ${this.urgency}`;
+    }
+}
+
+console.log(develop.resume());
+
+
+// Develop Task implements ITarea
+
+let developTS = new Develop("TypeScript", "TS Develop task", false, Levels.Blocking);
+console.log(developTS.resume());
+
+// Experimental Decorators
+
+// - Classes
+// - Parameters
+// - Methods
+// - Properties
+
