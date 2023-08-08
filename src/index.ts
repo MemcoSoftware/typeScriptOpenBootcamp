@@ -465,6 +465,7 @@ function mostrarError(error: string | number): void {
 };
 
 
+
 // Persistencia de datos
 // 1. LocalStorage --> almacena los datos en el navegador (No se eliminan automáticamente)
 // 2. SessionStorage --> La direfencia radica en la sesión del navegador. Es decir, los datos se persisten en la sesión del navegador
@@ -514,3 +515,4 @@ deleteCookie("user");
 // Delete all the cookies
 
 deleteAllCookies();
+
