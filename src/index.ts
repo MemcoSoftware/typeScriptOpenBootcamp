@@ -1,6 +1,12 @@
 import { AsyncLocalStorage } from "async_hooks";
 
+
+
 import { setCookie, deleteCookie, deleteAllCookies, getCookieValue } from "cookies-utils";
+import { Curso } from "./models/Curso";
+import { Student } from "./models/Student";
+import { LISTA_CURSOS } from "./mock/cursos.mock";
+
 
 console.log("Hi Baned!");
 console.log("adios Baned!");    
@@ -516,3 +522,84 @@ deleteCookie("user");
 
 deleteAllCookies();
 
+
+// Clase Temporizador
+
+
+class Temporizador {
+    public terminar?: (tiempo:number) => void;
+
+    public empezar(): void {
+        setTimeout(() => {
+
+            // check the funcion terminar exists as callback
+            if(!this.terminar)return;
+
+            // when time has passed out
+            this.terminar(Date.now());
+
+        }, 10000);
+    }
+}
+
+
+
+const miTemporizador:Temporizador = new Temporizador();
+
+// Define callback function to execute once time is out
+
+
+miTemporizador.terminar = (tiempo: number) =>{
+    console.log("Event finished en : ", tiempo)
+}
+
+// We lunch temp
+miTemporizador.empezar(); // Timeout is started. When finished, the funcion terminar is executed
+
+
+// setInterval(() => console.log("Tic", 1000)) // Prints tick each second
+
+
+// Delete the executed function 
+delete miTemporizador.terminar; 
+
+
+// EventTarget extend
+
+
+
+// ** CLASES 
+
+
+// Creating a grade
+
+// const cursoTS: Curso = new Curso("TypeScript", 15);
+// const cursoJS: Curso = new Curso("JavaScript", 20);
+
+// const listaCursos: Curso[] = [];
+
+// listaCursos.push(cursoTS, cursoJS); // Lista de cursos;
+
+
+// Using the MOCK
+const listaCursos: Curso[] = LISTA_CURSOS;
+
+
+// We create an student 
+
+const baned: Student = new Student("Baned", listaCursos, " SXT");
+
+console.log(`${baned.nombre} studies: `);
+// Iteramos por cada una de ellos
+baned.cursos.forEach((curso)=>{
+    console.log(` - ${curso.nombre} (${curso.hours}) horas`);
+})
+
+
+// -Typeof
+// -Instanceof
+
+// Know studied hours
+ baned.studiedHours;
+
+ baned.ID_Student;
