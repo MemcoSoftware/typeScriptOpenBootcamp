@@ -667,3 +667,71 @@ console.log(developTS.resume());
 // - Methods
 // - Properties
 
+function Override(label: string){
+    return function (target:any, key:string){
+        Object.defineProperty(target, key, {
+            configurable: false,
+            get: () => label
+        })
+    }
+}
+
+
+
+class PruebaDecorador {
+    @Override('prueba') // we call the override function
+    nombre: string = "baned"
+}
+
+
+
+let prueba = new PruebaDecorador();
+
+console.log(prueba.nombre) // "Prueba" will be returned throught get()
+
+
+// antoher function to use as decorator
+
+function OnlyRead(target: any, key:string){
+    Object.defineProperty(target, key, {
+        writable: false
+    })
+}
+
+class PruebaOnlyRead{
+    @OnlyRead
+    nombre: string = '';
+
+    
+}
+
+let pruebaReading = new PruebaOnlyRead();
+
+pruebaReading.nombre = 'baned';
+
+
+console.log(pruebaReading.nombre) // ==> undefined becase it cannot be defined (its only reading
+
+
+
+// Decorate for parameters of a method
+
+function showPosition(target: any, propertykey: string, parameterIndex: number){
+    console.log("Position", parameterIndex);
+}
+
+
+
+class testMethodDecorator {
+
+    test( a: string, @showPosition b: boolean){
+        console.log(b);
+    }
+}
+
+
+
+new testMethodDecorator().test('Hi!', false);
+
+
+
